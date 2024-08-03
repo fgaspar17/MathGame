@@ -20,5 +20,22 @@ namespace MathGame
 
             return false;
         }
+
+        public static bool OperationValidator(string? input, Options optionSelected, MathOperations operation)
+        {
+            int result = 0;
+
+            if (input == null) return false;
+            if(!int.TryParse(input,out result))
+            {
+                return false;
+            }
+            if(result != MathOperations.PerformOperation(optionSelected, operation))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
