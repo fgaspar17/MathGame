@@ -21,7 +21,7 @@ namespace MathGame
             return false;
         }
 
-        public static bool OperationValidator(string? input, Options optionSelected, MathOperations operation)
+        public static bool OperationValidator(string? input, IOperation operation)
         {
             int result = 0;
 
@@ -30,7 +30,7 @@ namespace MathGame
             {
                 return false;
             }
-            if(result != MathOperations.PerformOperation(optionSelected, operation))
+            if(result != operation.PerformOperation())
             {
                 return false;
             }
