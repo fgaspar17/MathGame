@@ -11,15 +11,17 @@ namespace MathGame
         public int Id {  get; set; }
         public string Operation { get; set; }
         public int Result { get; set; }
-        public GameRecord(int id, string operation, int result) 
+        public int Seconds { get; set; }
+        public GameRecord(int id, string operation, int result, int seconds) 
         { 
             Id = id;
             Operation = operation;
             Result = result;
+            Seconds = seconds;
         }
         public override string ToString()
         {
-            return $"{Id}. {Operation} = {Result}";
+            return $"{Id}. {Operation} = {Result}, {Seconds}s";
         }
     }
 }

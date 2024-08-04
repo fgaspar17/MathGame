@@ -21,6 +21,19 @@ namespace MathGame
             return false;
         }
 
+        public static bool DifficultyValidator(string? input, out Difficulty difficulty)
+        {
+            difficulty = new Difficulty();
+            if (input == null) return false;
+
+            if (Difficulty.TryParse<Difficulty>(input.Trim(), out difficulty))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public static bool OperationValidator(string? input, IOperation operation)
         {
             int result = 0;
