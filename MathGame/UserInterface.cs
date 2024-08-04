@@ -42,16 +42,17 @@ namespace MathGame
         }
 
         // TODO: return a result object with the data of the game to save it
-        public static int ShowOperation(Options option, MathOperations math)
+        public static int ShowOperation(IOperation operation)
         {
             int result = 0;
             bool validInput = false;
             do
             {
-                DisplayOperation(option, math);
+                // Print the operation in console
+                Console.WriteLine(operation.ToString());
                 Console.Write("Please enter the result of the operation: ");
 
-                validInput = InputValidator.OperationValidator(Console.ReadLine(), option, math);
+                validInput = InputValidator.OperationValidator(Console.ReadLine(), operation);
                 if (!validInput)
                 {
                     Console.WriteLine("Failed, try again!");
@@ -60,27 +61,6 @@ namespace MathGame
             } while (!validInput);
 
             return result;
-        }
-
-        public static void DisplayOperation(Options option, MathOperations math)
-        {
-            switch (option)
-            {
-                case Options.Addition:
-                    Console.WriteLine($"{math.FirstOperand} + {math.SecondOperand}");
-                    break;
-                case Options.Subtraction:
-                    Console.WriteLine($"{math.FirstOperand} - {math.SecondOperand}");
-                    break;
-                case Options.Multiplication:
-                    Console.WriteLine($"{math.FirstOperand} * {math.SecondOperand}");
-                    break;
-                case Options.Division:
-                    Console.WriteLine($"{math.FirstOperand} / {math.SecondOperand}");
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException($"The option {Enum.GetName(typeof(Options), option)} isn't valid");
-            }
         }
     }
 }
