@@ -41,7 +41,6 @@ namespace MathGame
             Console.WriteLine("6. Quit");
         }
 
-        // TODO: return a result object with the data of the game to save it
         public static int ShowOperation(IOperation operation)
         {
             int result = 0;
@@ -65,13 +64,13 @@ namespace MathGame
 
         public static void ShowHistory(List<GameRecord> history)
         {
+            Console.WriteLine();
+            Console.WriteLine("History:");
             foreach (GameRecord record in history)
             {
-                Console.WriteLine();
-                Console.WriteLine("History:");
                 Console.WriteLine(record.ToString());
-                Console.WriteLine();
             }
+            Console.WriteLine();
         }
     }
 }
