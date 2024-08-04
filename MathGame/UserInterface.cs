@@ -62,5 +62,16 @@ namespace MathGame
 
             return result;
         }
+
+        public static void ShowHistory(List<GameRecord> history)
+        {
+            foreach (GameRecord record in history)
+            {
+                Console.WriteLine();
+                Console.WriteLine("History:");
+                Console.WriteLine(record.ToString());
+                Console.WriteLine();
+            }
+        }
     }
 }
