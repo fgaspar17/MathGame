@@ -9,8 +9,6 @@ namespace MathGame
 {
     internal class Multiplication : Operation
     {
-        public int FirstOperand { get; init; }
-        public int SecondOperand { get; init; }
 
         public Multiplication(Difficulty difficulty) : base(difficulty) { }
 

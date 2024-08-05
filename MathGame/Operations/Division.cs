@@ -9,8 +9,6 @@ namespace MathGame
 {
     internal class Division : Operation
     {
-        public int FirstOperand { get; init; }
-        public int SecondOperand { get; init; }
 
         public Division(Difficulty difficulty) : base(difficulty)
         {
@@ -22,13 +20,13 @@ namespace MathGame
                 switch (difficulty)
                 {
                     case Difficulty.Easy:
-                        dividend = GlobalRandom.Instance.Next(0, 11);
+                        dividend = GlobalRandom.Instance.Next(0, 501);
                         break;
                     case Difficulty.Medium:
-                        dividend = GlobalRandom.Instance.Next(10, 101);
+                        dividend = GlobalRandom.Instance.Next(10, 701);
                         break;
                     case Difficulty.Hard:
-                        dividend = GlobalRandom.Instance.Next(100, 201);
+                        dividend = GlobalRandom.Instance.Next(100, 1001);
                         break;
                     default:
                         throw new InvalidEnumArgumentException($"The difficulty {Enum.GetName(typeof(Difficulty), difficulty)} isn't valid");

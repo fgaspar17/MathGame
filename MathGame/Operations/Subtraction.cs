@@ -9,8 +9,6 @@ namespace MathGame
 {
     internal class Subtraction : Operation
     {
-        public int FirstOperand { get; init; }
-        public int SecondOperand { get; init; }
 
         public Subtraction(Difficulty difficulty) : base(difficulty) { }
 

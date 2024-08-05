@@ -31,8 +31,7 @@ namespace MathGame
         DateTime init;
         DateTime end;
 
-        int countCurrentGames = 0;
-        int maxGames = 0;
+        int maxGames = 5;
         bool isGameCounting = false;
 
         bool continueRunning = true;
@@ -46,9 +45,6 @@ namespace MathGame
                 Options optionSelected = UserInterface.ShowMenu();
 
                 continueRunning = HandleOption(optionSelected);
-
-                if (isGameCounting) { countCurrentGames++; }
-                if (isGameCounting && countCurrentGames >= maxGames) break;
             }
         }
 
@@ -67,8 +63,7 @@ namespace MathGame
                     difficulty = UserInterface.ShowDifficultyOptions();
                     break;
                 case Options.RandomOperation:
-                    Options randomOperation = GetRandomOperation();
-                    PerformMathOperation(randomOperation);
+                    PerformMathOperation(optionSelected);
                     break;
                 case Options.Quit:
                     return false;
@@ -83,20 +78,27 @@ namespace MathGame
 
         private void PerformMathOperation(Options optionSelected)
         {
-            Operation operation = optionSelected switch
-            {
-                Options.Addition => new Addition(difficulty),
-                Options.Subtraction => new Subtraction(difficulty),
-                Options.Multiplication => new Multiplication(difficulty),
-                Options.Division => new Division(difficulty),
-                _ => throw new InvalidEnumArgumentException($"The option {Enum.GetName(typeof(Options), optionSelected)} isn't valid")
-            };
-
+            int hits = 0;
             init = DateTime.Now;
-            UserInterface.ShowOperation(operation);
+
+            for (int i = 0; i < maxGames; i++)
+            {
+                Options operationToDisplay = (optionSelected == Options.RandomOperation) ? GetRandomOperation() : optionSelected;
+
+                Operation operation = operationToDisplay switch
+                {
+                    Options.Addition => new Addition(difficulty),
+                    Options.Subtraction => new Subtraction(difficulty),
+                    Options.Multiplication => new Multiplication(difficulty),
+                    Options.Division => new Division(difficulty),
+                    _ => throw new InvalidEnumArgumentException($"The option {Enum.GetName(typeof(Options), optionSelected)} isn't valid")
+                };
+                if (InputValidator.OperationValidator(operation, UserInterface.ShowOperation(operation))) hits++;
+            }
+
             end = DateTime.Now;
 
-            history.Add(new GameRecord(idRecord++, operation.ToString(), operation.PerformOperation(), (end - init).Seconds));
+            history.Add(new GameRecord(idRecord++, maxGames, hits, (end - init).Seconds, optionSelected));
         }
 
         private Options GetRandomOperation()

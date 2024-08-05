@@ -8,47 +8,46 @@ namespace MathGame
 {
     internal static class InputValidator
     {
-        public static bool MenuValidator(string? input, out Options optionSelected)
+        public static (bool, Options) MenuValidator(string? input)
         {
-            optionSelected = Options.Unknown;
-            if (input == null) return false;
+            Options optionSelected = Options.Unknown;
+            if (input == null) return (false, optionSelected);
 
-            if (Options.TryParse<Options>(input.Trim(), out optionSelected))
+            if (Options.TryParse<Options>(input.Trim(), out optionSelected) && Enum.IsDefined(typeof(Options), optionSelected))
             {
-                return true;
+                return (true, optionSelected);
             }
 
-            return false;
+            return (false, optionSelected);
         }
 
-        public static bool DifficultyValidator(string? input, out Difficulty difficulty)
+        public static (bool, Difficulty) DifficultyValidator(string? input)
         {
-            difficulty = new Difficulty();
-            if (input == null) return false;
+            Difficulty difficulty = new Difficulty();
+            if (input == null) return (false, difficulty);
 
-            if (Difficulty.TryParse<Difficulty>(input.Trim(), out difficulty))
+            if (Difficulty.TryParse<Difficulty>(input.Trim(), out difficulty) && Enum.IsDefined(typeof(Difficulty), difficulty))
             {
-                return true;
+                return (true, difficulty);
             }
 
-            return false;
+            return (false, difficulty);
         }
 
-        public static bool OperationValidator(string? input, Operation operation)
+        public static (bool, int) NumericInputValidator(string? input)
         {
-            int result = 0;
-
-            if (input == null) return false;
-            if(!int.TryParse(input,out result))
+            if (input == null) return (false, -1);
+            if (int.TryParse(input,out int result))
             {
-                return false;
-            }
-            if(result != operation.PerformOperation())
-            {
-                return false;
+                return (true, result);
             }
 
-            return true;
+            return (false, -1);
+        }
+
+        public static bool OperationValidator(Operation operation, int userAnswer)
+        {
+            return operation.PerformOperation() == userAnswer;
         }
     }
 }

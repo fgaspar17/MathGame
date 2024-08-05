@@ -12,43 +12,16 @@ namespace MathGame
     {
         public static Options ShowMenu()
         {
-            Options optionSelected = new Options();
-            bool validSelection = false;
-            do
-            {
-                DisplayMenuOptions();
-                Console.Write("Please enter a number (1-9): ");
-                validSelection = InputValidator.MenuValidator(Console.ReadLine(), out optionSelected);
-                if (!validSelection)
-                {
-                    Console.WriteLine("Invalid selection. Please try again.");
+            string display = DisplayMenuOptions();
 
-                }
-
-            } while (!validSelection);
-
-            return optionSelected;
+            return GetValidInput<Options>(display, InputValidator.MenuValidator);
         }
 
         public static int ShowOperation(Operation operation)
         {
-            int result = 0;
-            bool validInput = false;
-            do
-            {
-                // Print the operation in console
-                Console.WriteLine(operation.ToString());
-                Console.Write("Please enter the result of the operation: ");
+            string display = DisplayOperation(operation);
 
-                validInput = InputValidator.OperationValidator(Console.ReadLine(), operation);
-                if (!validInput)
-                {
-                    Console.WriteLine("Failed, try again!");
-                }
-
-            } while (!validInput);
-
-            return result;
+            return GetValidInput<int>(display, InputValidator.NumericInputValidator);
         }
 
         public static void ShowHistory(List<GameRecord> history)
@@ -64,22 +37,9 @@ namespace MathGame
 
         public static Difficulty ShowDifficultyOptions()
         {
-            Difficulty difficulty = new Difficulty();
-            bool validSelection = false;
-            do
-            {
-                DisplayDifficultyOptions();
-                Console.Write("Please enter a number (1-3): ");
-                validSelection = InputValidator.DifficultyValidator(Console.ReadLine(), out difficulty);
-                if (!validSelection)
-                {
-                    Console.WriteLine("Invalid selection. Please try again.");
+            string display = DisplayDifficultyOptions();
 
-                }
-
-            } while (!validSelection);
-
-            return difficulty;
+            return GetValidInput<Difficulty>(display, InputValidator.DifficultyValidator);
         }
 
         public static int ShowNumberOfGames()
@@ -101,24 +61,59 @@ namespace MathGame
             return result;
         }
 
-        private static void DisplayMenuOptions()
+        public static T GetValidInput<T>(string display, Func<string, (bool, T)> validator)
         {
-            Console.WriteLine("1. Addition");
-            Console.WriteLine("2. Subtraction");
-            Console.WriteLine("3. Multiplication");
-            Console.WriteLine("4. Division");
-            Console.WriteLine("5. Random Game");
-            Console.WriteLine("6. Number of Games");
-            Console.WriteLine("7. History");
-            Console.WriteLine("8. Choose Difficulty");
-            Console.WriteLine("9. Quit");
+            do
+            {
+                Console.Write(display);
+                (bool validSelection, T result) = validator(Console.ReadLine());
+                if (validSelection)
+                {
+                    return result;
+                }
+                Console.WriteLine("Invalid selection. Please try again.");
+
+            } while (true);
         }
 
-        private static void DisplayDifficultyOptions()
+        private static string DisplayMenuOptions()
         {
-            Console.WriteLine("1. Easy");
-            Console.WriteLine("2. Medium");
-            Console.WriteLine("3. Hard");
+            StringBuilder sbMenu = new StringBuilder();
+
+            sbMenu.AppendLine("1. Addition");
+            sbMenu.AppendLine("2. Subtraction");
+            sbMenu.AppendLine("3. Multiplication");
+            sbMenu.AppendLine("4. Division");
+            sbMenu.AppendLine("5. Random Game");
+            sbMenu.AppendLine("6. Number of Games");
+            sbMenu.AppendLine("7. History");
+            sbMenu.AppendLine("8. Choose Difficulty");
+            sbMenu.AppendLine("9. Quit");
+            sbMenu.AppendLine("Please enter a number (1-9): ");
+
+            return sbMenu.ToString();
+        }
+
+        private static string DisplayDifficultyOptions()
+        {
+            StringBuilder sbDifficulty = new StringBuilder();
+
+            sbDifficulty.AppendLine("1. Easy");
+            sbDifficulty.AppendLine("2. Medium");
+            sbDifficulty.AppendLine("3. Hard");
+            sbDifficulty.AppendLine("Please enter a number (1-3): ");
+
+            return sbDifficulty.ToString();
+        }
+
+        private static string DisplayOperation(Operation operation)
+        {
+            StringBuilder sbOperation = new StringBuilder();
+
+            sbOperation.AppendLine(operation.ToString());
+            sbOperation.AppendLine("Please enter the result of the operation: ");
+
+            return sbOperation.ToString();
         }
     }
 }

@@ -9,8 +9,8 @@ namespace MathGame
 {
     internal abstract class Operation
     {
-        int FirstOperand { get; init; }
-        int SecondOperand { get; init; }
+        protected int FirstOperand { get; init; }
+        protected int SecondOperand { get; init; }
 
         public Operation(Difficulty difficulty)
         {
