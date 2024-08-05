@@ -1,18 +1,15 @@
-﻿
+﻿namespace MathGame;
 
-namespace MathGame
+internal sealed class GlobalRandom
 {
-    internal sealed class GlobalRandom
-    {
-        private static readonly Random _random = new Random();
-        private GlobalRandom() { }
+    private static readonly Random _random = new Random();
+    private GlobalRandom() { }
 
-        public static Random Instance
+    public static Random Instance
+    {
+        get
         {
-            get
-            {
-                return _random;
-            }
+            return _random;
         }
     }
 }
