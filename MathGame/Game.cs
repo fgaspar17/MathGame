@@ -83,7 +83,7 @@ namespace MathGame
 
         private void PerformMathOperation(Options optionSelected)
         {
-            IOperation operation = optionSelected switch
+            Operation operation = optionSelected switch
             {
                 Options.Addition => new Addition(difficulty),
                 Options.Subtraction => new Subtraction(difficulty),

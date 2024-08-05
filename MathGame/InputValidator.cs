@@ -34,7 +34,7 @@ namespace MathGame
             return false;
         }
 
-        public static bool OperationValidator(string? input, IOperation operation)
+        public static bool OperationValidator(string? input, Operation operation)
         {
             int result = 0;
 

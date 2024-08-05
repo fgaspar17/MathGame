@@ -30,7 +30,7 @@ namespace MathGame
             return optionSelected;
         }
 
-        public static int ShowOperation(IOperation operation)
+        public static int ShowOperation(Operation operation)
         {
             int result = 0;
             bool validInput = false;
