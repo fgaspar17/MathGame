@@ -98,7 +98,11 @@ namespace MathGame
 
             end = DateTime.Now;
 
-            history.Add(new GameRecord(idRecord++, maxGames, hits, (end - init).Seconds, optionSelected));
+            GameRecord gameRecord = new GameRecord(idRecord++, maxGames, hits, (end - init).Seconds, optionSelected);
+
+            UserInterface.DisplayResult(gameRecord);
+
+            history.Add(gameRecord);
         }
 
         private Options GetRandomOperation()

@@ -115,5 +115,12 @@ namespace MathGame
 
             return sbOperation.ToString();
         }
+
+        public static void DisplayResult(GameRecord gameRecord)
+        {
+            Console.WriteLine();
+            Console.WriteLine(gameRecord.ToString());
+            Console.WriteLine();
+        }
     }
 }
