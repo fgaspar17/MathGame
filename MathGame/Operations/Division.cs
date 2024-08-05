@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MathGame
 {
-    internal class Division : IOperation
+    internal class Division : Operation
     {
         public int FirstOperand { get; init; }
         public int SecondOperand { get; init; }
 
-        public Division(Difficulty difficulty)
+        public Division(Difficulty difficulty) : base(difficulty)
         {
             int dividend;
             int divisor;
@@ -41,7 +41,7 @@ namespace MathGame
             SecondOperand = divisor;
         }
 
-        public int PerformOperation()
+        public override int PerformOperation()
         {
             return FirstOperand / SecondOperand;
         }

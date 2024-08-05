@@ -7,33 +7,14 @@ using System.Threading.Tasks;
 
 namespace MathGame
 {
-    internal class Subtraction : IOperation
+    internal class Subtraction : Operation
     {
         public int FirstOperand { get; init; }
         public int SecondOperand { get; init; }
 
-        public Subtraction(Difficulty difficulty)
-        {
-            switch (difficulty)
-            {
-                case Difficulty.Easy:
-                    FirstOperand = GlobalRandom.Instance.Next(0, 11);
-                    SecondOperand = GlobalRandom.Instance.Next(0, 11);
-                    break;
-                case Difficulty.Medium:
-                    FirstOperand = GlobalRandom.Instance.Next(10, 101);
-                    SecondOperand = GlobalRandom.Instance.Next(10, 101);
-                    break;
-                case Difficulty.Hard:
-                    FirstOperand = GlobalRandom.Instance.Next(100, 201);
-                    SecondOperand = GlobalRandom.Instance.Next(100, 201);
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException($"The difficulty {Enum.GetName(typeof(Difficulty), difficulty)} isn't valid");
-            }
-        }
+        public Subtraction(Difficulty difficulty) : base(difficulty) { }
 
-        public int PerformOperation()
+        public override int PerformOperation()
         {
             return FirstOperand - SecondOperand;
         }
